@@ -14,6 +14,8 @@ public class LoginPage extends AppCompatActivity {
 
     private Button mLoginButton;
 
-    //test to see if Git updates
+    //TODO: Create register button on activityLogin.xml and create variable here
+
+
 
 }
