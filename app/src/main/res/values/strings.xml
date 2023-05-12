@@ -4,4 +4,8 @@
     <string name="password_text">password</string>
     <string name="login_text">Login</string>
     <string name="username_text">username</string>
+    <string name="menu">Menu</string>
+    <string name="order">Order</string>
+    <string name="cart">cart</string>
+    <string name="admin_options">admin options</string>
 </resources>
