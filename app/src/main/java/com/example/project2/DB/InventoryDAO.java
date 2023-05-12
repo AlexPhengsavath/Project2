@@ -26,7 +26,7 @@ public interface InventoryDAO {
     List<Inventory> getAllInventory();
 
     @Query("SELECT * FROM " + AppDataBase.INV_TABLE + " WHERE mInventoryId = :inventoryId ORDER BY mDate desc")
-    List<Inventory> getInventoryById(int stockId);
+    List<Inventory> getInventoryById(int inventoryId);
 
     @Query("SELECT * FROM " + AppDataBase.INV_TABLE + " WHERE mUserId = :userId ORDER BY mDate desc")
     List<Inventory> getStockByUserId(int userId);

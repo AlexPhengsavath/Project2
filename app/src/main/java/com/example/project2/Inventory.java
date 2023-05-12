@@ -2,9 +2,10 @@ package com.example.project2;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+import com.example.project2.DB.AppDataBase;
 import java.util.Date;
 
+@Entity(tableName = AppDataBase.INV_TABLE)
 public class Inventory {
     @PrimaryKey(autoGenerate = true)
     private int mInventoryID;
@@ -77,9 +78,9 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Stock #: " + mInventoryID + "\n" +
+        return "Inventory #: " + mInventoryID + "\n" +
                 "Name: " + mName + "\n" +
-                "Price: $" + mValue + "\n" +
+                "Value: $" + mValue + "\n" +
                 "User #: " + mUserID + "\n" +
                 "=-=-=-=-=-=-\n";
     }
