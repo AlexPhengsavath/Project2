@@ -17,4 +17,7 @@
     <string name="enter_value">Enter Value</string>
     <string name="enter_quantity">Enter Quantity</string>
     <string name="add_item">add item</string>
+    <string name="cart_text">Cart</string>
+    <string name="purchase_text">Purchase</string>
+    <string name="remove_text">Remove</string>
 </resources>
