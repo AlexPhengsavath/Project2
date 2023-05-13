@@ -24,7 +24,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String USER_ID_KEY = "com.example.project2.userIDKey";
-    private static final  String PREFERENCES_KEY = "com.example.project2.PREFERENCES_KEY";
 
     private TextView mMainMenuTitle;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int mUserID = -1;
 
-    private SharedPreferences mPreferences = null;
     private User mUser;
 
     @Override
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         getDatabase();
 
         checkForUser();
-        addUserToPreference(mUserID);
 
         loginUser(mUserID);
 
@@ -95,12 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (mPreferences == null) {
-                getPrefs();
-            }
-
-            mUserID = mPreferences.getInt(USER_ID_KEY, -1);
-
             if (mUserID != -1) {
                 return;
             }
@@ -116,19 +107,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-    private void getPrefs() {
-        mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-    }
-
-    private void addUserToPreference(int userID) {
-        if (mPreferences == null) {
-            getPrefs();
-        }
-        SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt(USER_ID_KEY, userID);
-        editor.apply();
-    }
-
     private void loginUser(int userID) {
         mUser = mInventoryDAO.getUserByUserId(userID);
         invalidateOptionsMenu();
@@ -143,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 clearUserFromIntent();
-                clearUserFromPref();
                 mUserID = -1;
                 checkForUser();
             }
@@ -162,9 +139,6 @@ public class MainActivity extends AppCompatActivity {
         getIntent().putExtra(USER_ID_KEY, -1);
     }
 
-    private void clearUserFromPref() {
-        addUserToPreference(-1);
-    }
 
     public static Intent intentFactory(Context context, int userID) {
         Intent intent = new Intent(context, MainActivity.class);
