@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             mInventoryDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DB_NAME)
                     .allowMainThreadQueries()
                     .build()
-                    .getStockDAO();
+                    .getInventoryDAO();
         }
         private void checkForUser() {
             mUserID = getIntent().getIntExtra(USER_ID_KEY, -1);
