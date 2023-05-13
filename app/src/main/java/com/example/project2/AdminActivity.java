@@ -1,33 +1,26 @@
 package com.example.project2;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
+import androidx.room.Room;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.InventoryDAO;
 
 import java.util.List;
 
-public class AdminActivity {
+public class AdminActivity extends AppCompatActivity{
 
     private static final String USER_ID_KEY = "com.example.project2.userIDKey";
-    private static final  String PREFERENCES_KEY = "com.example.project2.PREFERENCES_KEY";
 
     private TextView mStockDisplay;
     private EditText mEnterName;
@@ -40,7 +33,6 @@ public class AdminActivity {
     private List<Inventory> mInventory;
     private List<User> mUsers;
     private int mUserID = -1;
-    private SharedPreferences mPreferences = null;
     private User mUser;
 
     @Override
@@ -52,14 +44,10 @@ public class AdminActivity {
         loginUser(mUserID);
 
         mStockDisplay = findViewById(R.id.textViewInventory);
-        mStockDisplay.setMovementMethod(new ScrollingMovementMethod());
         mEnterName = findViewById(R.id.editTextItemName);
         mEnterPrice = findViewById(R.id.editTextItemValue);
         mEnterStock = findViewById(R.id.editTextItemQuantity);
         mSubmitButton = findViewById(R.id.buttonSubmitButton);
-        mUserDisplay.setMovementMethod(new ScrollingMovementMethod());
-
-        refreshDisplay();
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +63,6 @@ public class AdminActivity {
                 for (int i = 0; i < stockQ; i++) {
                     mInventoryDAO.insert(stock);
                 }
-                refreshDisplay();
             }
         });
     }
