@@ -12,4 +12,9 @@
     <string name="items_text">Items</string>
     <string name="search_text">Search</string>
     <string name="add_to_cart_button_text">Add To Cart</string>
+    <string name="current_inventory">Current Inventory</string>
+    <string name="enter_item_name">Enter Item Name</string>
+    <string name="enter_value">Enter Value</string>
+    <string name="enter_quantity">Enter Quantity</string>
+    <string name="add_item">add item</string>
 </resources>

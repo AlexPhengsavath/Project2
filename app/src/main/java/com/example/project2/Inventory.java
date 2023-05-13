@@ -81,7 +81,6 @@ public class Inventory {
         return "Inventory #: " + mInventoryID + "\n" +
                 "Name: " + mName + "\n" +
                 "Value: $" + mValue + "\n" +
-                "User #: " + mUserID + "\n" +
                 "=-=-=-=-=-=-\n";
     }
 
