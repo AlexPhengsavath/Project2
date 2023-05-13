@@ -8,4 +8,5 @@
     <string name="order">Order</string>
     <string name="cart">cart</string>
     <string name="admin_options">admin options</string>
+    <string name="register_button_text">Register</string>
 </resources>
