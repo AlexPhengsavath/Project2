@@ -1,5 +1,6 @@
 package com.example.project2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -85,12 +86,19 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
+        return false; //implement
     }
 
     private boolean checkForUserInDatabase() {
+        return false; //implement
     }
 
     private void getValuesFromDisplay() {
+    }
+
+    public static Intent intentFactory(Context context){
+        Intent intent = new Intent(context, LoginPage.class);
+        return intent;
     }
 
 }
