@@ -9,4 +9,7 @@
     <string name="cart">cart</string>
     <string name="admin_options">admin options</string>
     <string name="register_button_text">Register</string>
+    <string name="items_text">Items</string>
+    <string name="search_text">Search</string>
+    <string name="add_to_cart_button_text">Add To Cart</string>
 </resources>
