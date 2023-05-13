@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
+import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.InventoryDAO;
 
 public class LoginPage extends AppCompatActivity {
@@ -42,6 +44,10 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void getDatabase() {
+        mInventoryDAO = (InventoryDAO) Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DB_NAME)
+                .allowMainThreadQueries()
+                .build()
+                .getInventoryDAO();
     }
 
     private void wireupDisplay() {
@@ -63,7 +69,7 @@ public class LoginPage extends AppCompatActivity {
                     if(!validatePassword()){
                         Toast.makeText(LoginPage.this, "Invalid password", Toast.LENGTH_SHORT).show();
                     }else{
-                        Intent intent = MainActivity.intentFactory(this, mUser.getUserID());
+                        Intent intent = MainActivity.intentFactory(getApplicationContext(), mUser.getUserID());
                         startActivity(intent);
                     }
                 }
@@ -78,7 +84,7 @@ public class LoginPage extends AppCompatActivity {
                     User user = new User(mUsernameString, mPasswordString);
                     mInventoryDAO.insert(user);
 
-                    Intent intent = MainActivity.intentFactory(this, mUser.getUserID());
+                    Intent intent = MainActivity.intentFactory(getApplicationContext(), mUser.getUserID());
                     startActivity(intent);
                 }
             }
@@ -86,14 +92,21 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        return false; //implement
+        return mUser.getPassword().equals(mPasswordString);
     }
 
     private boolean checkForUserInDatabase() {
-        return false; //implement
+        mUser = mInventoryDAO.getUserByUsername(mUsernameString);
+        if(mUser == null){
+            Toast.makeText(this, "No user: " + mUsernameString + " found.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void getValuesFromDisplay() {
+        mUsernameString = mUsernameText.getText().toString();
+        mPasswordString = mPasswordText.getText().toString();
     }
 
     public static Intent intentFactory(Context context){

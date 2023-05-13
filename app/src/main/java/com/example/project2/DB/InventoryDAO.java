@@ -29,7 +29,7 @@ public interface InventoryDAO {
     List<Inventory> getInventoryById(int inventoryId);
 
     @Query("SELECT * FROM " + AppDataBase.INV_TABLE + " WHERE mUserId = :userId ORDER BY mDate desc")
-    List<Inventory> getStockByUserId(int userId);
+    List<Inventory> getInventoryByUserId(int userId);
 
     @Insert
     void insert(User... users);

@@ -14,6 +14,6 @@ public abstract class AppDataBase extends RoomDatabase{
     public static final String INV_TABLE = "Inventory_Table";
     public static final String USER_TABLE = "User_Table";
 
-    public abstract InventoryDAO getStockDAO();
+    public abstract InventoryDAO getInventoryDAO();
 
 }
