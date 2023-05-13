@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        getDatabase();
-//
-//        checkForUser();
-//        addUserToPreference(mUserID);
-//
-//        loginUser(mUserID);
+        getDatabase();
+
+        checkForUser();
+        addUserToPreference(mUserID);
+
+        loginUser(mUserID);
 
         mMainMenuTitle = findViewById(R.id.EditTextMenuName);
 
@@ -60,24 +60,24 @@ public class MainActivity extends AppCompatActivity {
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = OrderActivity.intentFactory(getApplicationContext(), mUser.getUserID());
-//                startActivity(intent);
+                Intent intent = OrderActivity.intentFactory(getApplicationContext(), mUser.getUserID());
+                startActivity(intent);
             }
         });
 
         mCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = CartActivity.intentFactory(getApplicationContext(), mUser.getUserID());
-//                startActivity(intent);
+                Intent intent = CartActivity.intentFactory(getApplicationContext(), mUser.getUserID());
+                startActivity(intent);
             }
         });
 
         mAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = AdminActivity.intentFactory(getApplicationContext(), mUser.getUserID());
-//                startActivity(intent);
+                Intent intent = AdminActivity.intentFactory(getApplicationContext(), mUser.getUserID());
+                startActivity(intent);
             }
         });
     }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             mInventoryDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DB_NAME)
                     .allowMainThreadQueries()
                     .build()
-                    .getStockDAO();
+                    .getInventoryDAO();
         }
         private void checkForUser() {
             mUserID = getIntent().getIntExtra(USER_ID_KEY, -1);
@@ -118,6 +118,52 @@ public class MainActivity extends AppCompatActivity {
 
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+    }
+
+    private void addUserToPreference(int userID) {
+        if (mPreferences == null) {
+            getPrefs();
+        }
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(USER_ID_KEY, userID);
+        editor.apply();
+    }
+
+    private void loginUser(int userID) {
+        mUser = mInventoryDAO.getUserByUserId(userID);
+        invalidateOptionsMenu();
+    }
+
+    private void logoutUser() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        alertBuilder.setMessage("Logout?");
+
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                clearUserFromIntent();
+                clearUserFromPref();
+                mUserID = -1;
+                checkForUser();
+            }
+        });
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+    private void clearUserFromIntent() {
+        getIntent().putExtra(USER_ID_KEY, -1);
+    }
+
+    private void clearUserFromPref() {
+        addUserToPreference(-1);
     }
 
     public static Intent intentFactory(Context context, int userID) {
